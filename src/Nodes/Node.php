@@ -25,12 +25,6 @@ class Node
         return $this->nodeRepository->getNode('text', $page, $key, $attributes);
     }
 
-
-
-
-
-
-
     protected function nodeExists($type, $page, $key, $attributes = [])
     {
         return $this->nodeRepository->getNode($type, $page, $key);
