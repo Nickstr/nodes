@@ -1,0 +1,11 @@
+{
+	"name": "Nickstr/Nodes",
+	"description": "Present Site",
+	"autoload": {
+		"psr-0": {"Nodes": "src/"}
+	},
+	"config": {
+		"preferred-install": "dist"
+	},
+	"minimum-stability": "dev"
+}

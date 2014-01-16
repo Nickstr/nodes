@@ -1,0 +1,10 @@
+// function($page, $name, ['attributes'])
+$this->node->image();
+$this->node->text();
+$this->node->heading();
+$this->node->file();
+
+
+// maybe?
+$this->node->date();
+$this->node->map();
