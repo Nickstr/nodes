@@ -2,17 +2,25 @@
 
 class FileStorage implements StorageProviderInterface
 {
+    public function __construct($config)
+    {
+        $this->folderPath = $config['path'];
+    }
+
     public function get($type, $page, $key)
     {
-        if(file_exists($this->getFilePath($page, $key))) {
-            return file_get_contents($this->getFilePath($page, $key), 'r');
+        if(is_file($this->getFilePath($type, $page, $key))) {
+            return file_get_contents($this->getFilePath($type, $page, $key), 'r');
         }
     }
 
     public function put($type, $page, $key)
     {
-        $this->createPageFolder($page);
-        file_put_contents($this->getFilePath($page, $key), $key, FILE_APPEND);
+        if(! $this->dirExists($page)) {
+            $this->createPageFolder($page);
+        }
+
+        file_put_contents($this->getFilePath($type, $page, $key), $key);
     }
 
     public function delete()
@@ -20,18 +28,24 @@ class FileStorage implements StorageProviderInterface
 
     }
 
-    protected function getFilePath($page, $key)
+    protected function getFilePath($type, $page, $key)
     {
-        return "{$this->getBaseFolder()}{$page}/{$key}.md";
+        return "{$this->getBasePath()}/{$page}/{$type} - {$key}.md";
     }
 
-    protected function getBaseFolder()
+    protected function getBasePath()
     {
-        return "{$_SERVER['DOCUMENT_ROOT']}/storage/nodes/";
+        return "{$_SERVER['DOCUMENT_ROOT']}/{$this->folderPath}";
     }
 
     protected function createPageFolder($page)
     {
-        mkdir($this->getBaseFolder(). '/'. $page);
+        mkdir($this->getBasePath(). '/'. $page);
+    }
+
+    protected function dirExists($page)
+    {
+        $dir = $this->getBasePath() . '/' . $page;
+        return is_dir($dir);
     }
 }

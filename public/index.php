@@ -7,8 +7,14 @@ error_reporting(E_ALL);
 // Include autoloader
 require_once './../vendor/autoload.php';
 
-$node = new Nodes\Node(new Nodes\StorageProviders\FileStorage);
+$config = [
+    'path'  => 'storage/nodes'
+];
 
-$header = $node->getHeader('home', 'test');
+$nodes = new Nodes\Node(new Nodes\StorageProviders\FileStorage($config));
+echo $nodes->getHeader('foo', 'bar');
+echo $nodes->getText('foo', 'bar');
+?>
 
-var_dump($header);
+
+<h1>Hoi! <?php echo $nodes->getHeader('home', 'groet naam'); ?></h1>

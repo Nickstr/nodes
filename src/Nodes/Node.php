@@ -16,6 +16,15 @@ class Node
         return $this->nodeRepository->getNode('header', $page, $key, $attributes);
     }
 
+    public function getText($page, $key, array $attributes = [])
+    {
+        if(! $this->nodeExists('text', $page, $key)) {
+            $this->nodeRepository->createNode('text', $page, $key, $attributes);
+        }
+
+        return $this->nodeRepository->getNode('text', $page, $key, $attributes);
+    }
+
 
 
 
