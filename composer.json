@@ -1,5 +1,5 @@
 {
-	"name": "Nickstr/Nodes",
+	"name": "nickstr/nodes",
 	"description": "Learning project - DO NOT USE",
 	"autoload": {
 		"psr-0": {"Nodes": "src/"}
