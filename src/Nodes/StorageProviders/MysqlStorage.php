@@ -4,10 +4,13 @@ use PDO;
 
 class MysqlStorage implements StorageProviderInterface
 {
-    public function __construct($config)
+    protected $config;
+    protected $connection;
+
+    public function __construct($config = null)
     {
-        $this->connection = new PDO("mysql:host={$config['host']};dbname={$config['database']}", $config['username'], $config['password']);
-        $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $this->setConfig($config);
+        $this->setConnection();
     }
 
     public function get($type, $page, $key)
@@ -25,7 +28,14 @@ class MysqlStorage implements StorageProviderInterface
         $query->execute(['type' => $type, 'page' => $page, 'key' => $key]);
     }
 
-    public function delete()
+    protected function setConnection()
     {
+        $this->connection = new PDO("mysql:host={$this->config['host']};dbname={$this->config['database']}", $this->config['username'], $this->config['password']);
+        $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    }
+
+    protected function setConfig($config)
+    {
+        $this->config = $config;
     }
 }

@@ -7,16 +7,21 @@ error_reporting(E_ALL);
 // Include autoloader
 require_once './../vendor/autoload.php';
 
-$config = [
+$file = [
+    'path' => 'storage/nodes'
+];
+
+$database = [
     'host'  => 'localhost',
     'database' => 'workshop_development',
     'username' => 'root',
     'password' => 'password'
 ];
 
-$nodes = new Nodes\Node(new Nodes\StorageProviders\MysqlStorage($config));
+$nodes = new Nodes\Node(new Nodes\StorageProviders\FileStorage($file));
 
-echo $nodes->getHeader('foo', 'bar');
+echo $nodes->header('foo', 'bar');
 
-echo $nodes->getHeader('foo', 'bar2');
+echo $nodes->header('foo', 'bar2');
 ?>
+<img width="100" height="auto" src="images/<? echo $nodes->image('foo', 'bar3'); ?>">

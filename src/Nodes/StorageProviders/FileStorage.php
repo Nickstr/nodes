@@ -23,11 +23,6 @@ class FileStorage implements StorageProviderInterface
         file_put_contents($this->getFilePath($type, $page, $key), $key);
     }
 
-    public function delete()
-    {
-
-    }
-
     protected function getFilePath($type, $page, $key)
     {
         return "{$this->getBasePath()}/{$page}/{$type} - {$key}.md";

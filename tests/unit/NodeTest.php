@@ -24,7 +24,7 @@ class NodeTest extends \PHPUnit_Framework_TestCase
     public function testCanGetHeader()
     {
         $node = $this->createNode();
-        $header = $node->getHeader('foo', 'bar');
+        $header = $node->header('foo', 'bar');
 
         $this->assertEquals($header, 'bar');
     }
